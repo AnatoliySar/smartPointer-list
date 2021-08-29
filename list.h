@@ -19,78 +19,10 @@ class cList
 	cNode<T>* head;
 	cNode<T>* back;
 public:
-	cList()
-	{
-		counter = 0;
-		head = NULL;
-		back = NULL;
-	}
-	void input(const T& a)
-	{
-		if (counter == 0)
-		{
-			counter = 1;
-			head = new cNode<T>;
-			head->data = a;
-			head->next = NULL;
-			head->prev = NULL;
-			back = head;
-			return;
-		}
-		counter++;
-		cNode<T>* tmp = new cNode<T>;
-		tmp->data = a;
-		tmp->next = NULL;
-		tmp->prev = back;
-		back->next = tmp;
-		back = tmp;
-	}
-	void erase(const T& a)
-	{
-		if (counter == 0)
-			return;
-		cNode<T>* tmp = head;
-		cNode<T>* tmp2 = head;
-		while (tmp->data == a)
-		{
-			if (head->next != NULL)
-				head->next->prev = NULL;
-			head = head->next;
-			delete tmp;
-			tmp = head;
-			counter--;		
-			if (counter == 0)
-				return;
-		}
-		while (tmp != NULL)
-		{
-			if (tmp->data == a)
-			{
-				tmp2->next = tmp->next;
-				if (tmp->next != NULL)
-					tmp->next->prev = tmp2;
-				delete tmp;
-				tmp = tmp2;
-				counter--;
-			}
-			tmp2 = tmp;
-			tmp = tmp->next;
-		}
-		
-	}
-	void printList()
-	{
-		if (counter == 0)
-			cout << "Empty list.\n";
-		cNode<T>* tmp = head;
-		for (int i = 0; i < counter; i++)
-		{
-			cout << tmp->data << "  ";
-			tmp = tmp->next;
-		}
-		cout << endl;
-		
-	}
+	cList();	
+	void input(const T& a);
+	void erase(const T& a);
+	void printList();	
 	class Iterator
 	{
 	private:
@@ -127,5 +59,76 @@ public:
 	reverseIterator rend() const { return reverseIterator(NULL); }
 };
 
+template<class T> cList<T>::cList()
+{
+	counter = 0;
+	head = NULL;
+	back = NULL;
+}
+template<class T> void cList<T>::input(const T& a)
+{
+	if (counter == 0)
+	{
+		counter = 1;
+		head = new cNode<T>;
+		head->data = a;
+		head->next = NULL;
+		head->prev = NULL;
+		back = head;
+		return;
+	}
+	counter++;
+	cNode<T>* tmp = new cNode<T>;
+	tmp->data = a;
+	tmp->next = NULL;
+	tmp->prev = back;
+	back->next = tmp;
+	back = tmp;
+}
+template<class T> void cList<T>::erase(const T& a)
+{
+	if (counter == 0)
+		return;
+	cNode<T>* tmp = head;
+	cNode<T>* tmp2 = head;
+	while (tmp->data == a)
+	{
+		if (head->next != NULL)
+			head->next->prev = NULL;
+		head = head->next;
+		delete tmp;
+		tmp = head;
+		counter--;
+		if (counter == 0)
+			return;
+	}
+	while (tmp != NULL)
+	{
+		if (tmp->data == a)
+		{
+			tmp2->next = tmp->next;
+			if (tmp->next != NULL)
+				tmp->next->prev = tmp2;
+			delete tmp;
+			tmp = tmp2;
+			counter--;
+		}
+		tmp2 = tmp;
+		tmp = tmp->next;
+	}
+}
+template<class T> void cList<T>::printList()
+{
+	if (counter == 0)
+		cout << "Empty list.\n";
+	cNode<T>* tmp = head;
+	for (int i = 0; i < counter; i++)
+	{
+		cout << tmp->data << "  ";
+		tmp = tmp->next;
+	}
+	cout << endl;
+
+}
 
 #endif

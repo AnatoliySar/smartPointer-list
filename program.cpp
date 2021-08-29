@@ -1,5 +1,6 @@
 #include "sm.h"
 #include "list.h"
+#include "set.h"
 
 customSP<int> foo(int x)
 {
@@ -29,4 +30,14 @@ int main()
 	{
 		cout << *i << endl;
 	}
+
+	cSet<int> s;
+	s.input(5);
+	s.input(6);
+	s.input(5);
+	s.input(4);
+	s.input(2);
+	s.input(0);
+	s.input(1);
+	s.erase(4);
 }
